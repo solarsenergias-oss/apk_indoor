@@ -21,6 +21,14 @@ import java.util.Locale
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
+/**
+ * Tela única do player: fica em loop trocando entre imagens e vídeos baixados
+ * do painel Mídia Indoor. Sem navegador — cada mídia é baixada e guardada
+ * localmente (offline-first) e reproduzida nativamente.
+ *
+ * Configuração (URL do servidor + ID da tela): toque e segure em qualquer
+ * lugar da tela para abrir o diálogo.
+ */
 class PlayerActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPlayerBinding
@@ -49,8 +57,8 @@ class PlayerActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "PlayerActivity"
         private const val DURACAO_IMAGEM_MS = 10_000L
-        private const val REFRESH_INTERVAL_MS = 5 * 60_000L
-        private const val RETRY_INTERVAL_MS = 30_000L
+        private const val REFRESH_INTERVAL_MS = 5 * 60_000L // recarrega a playlist a cada 5 min quando está tudo ok
+        private const val RETRY_INTERVAL_MS = 30_000L // tenta de novo bem mais rápido quando falhou (ex: servidor "acordando")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -134,17 +142,18 @@ class PlayerActivity : AppCompatActivity() {
         mainHandler.post(refreshRunnable)
     }
 
+    /** Busca a lista de mídias no servidor e baixa pro cache local (roda em background). */
     private fun carregarMidias() {
         val client = apiClient ?: return
         bg.execute {
             try {
-                val midias = client.fetchMidias().filter { it.isReproduzivelLocalmente() }
+                val midias = client.fetchMidias(prefs.telaId).filter { it.isReproduzivelLocalmente() }
                 midias.forEach { midia ->
                     if (!cache.estaEmCache(midia)) {
                         try {
                             val bytes = client.baixarArquivo(midia.url!!)
                             cache.salvar(midia, bytes)
-                            Log.i(TAG, "Midia baixada: ${midia.nome}")
+                            Log.i(TAG, "Mídia baixada: ${midia.nome}")
                         } catch (e: Exception) {
                             Log.w(TAG, "Falha ao baixar '${midia.nome}': ${e.message}")
                         }
@@ -175,9 +184,11 @@ class PlayerActivity : AppCompatActivity() {
                     if (playlist.isEmpty()) {
                         binding.statusText.text = getString(R.string.status_offline)
                     } else if (!tocandoAgora) {
+                        // Já tínhamos mídias em cache de antes — toca offline mesmo assim.
                         tocandoAgora = true
                         reproduzirAtual()
                     }
+                    // Tenta de novo rapidinho (o servidor pode só estar "acordando").
                     mainHandler.removeCallbacks(refreshRunnable)
                     mainHandler.postDelayed(refreshRunnable, RETRY_INTERVAL_MS)
                 }
