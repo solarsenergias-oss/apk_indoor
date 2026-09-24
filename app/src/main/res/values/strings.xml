@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Mídia Indoor Player</string>
+    <string name="config_title">Configurar tela</string>
+    <string name="config_server_hint">URL do servidor (ex: https://midia-indoor-dtlj.onrender.com)</string>
+    <string name="config_tela_hint">ID da tela (cadastrada em Minhas Telas no painel)</string>
+    <string name="config_save">Salvar e iniciar</string>
+    <string name="status_no_config">Toque e segure na tela para configurar</string>
+    <string name="status_loading">Carregando mídias…</string>
+    <string name="status_empty">Nenhuma mídia cadastrada para esta tela</string>
+    <string name="status_offline">Sem conexão — reproduzindo mídias salvas localmente</string>
+</resources>
