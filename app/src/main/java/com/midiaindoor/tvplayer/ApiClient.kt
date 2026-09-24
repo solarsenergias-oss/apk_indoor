@@ -10,19 +10,21 @@ import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
 /**
- * Fala com as rotas PÚBLICAS do backend (não exigem login):
+ * Fala com as rotas PUBLICAS do backend (nao exigem login):
  *   GET  /api/public/midias
  *   POST /api/exibicoes
- * Essas rotas já existem no servidor Mídia Indoor sem necessidade de token.
+ * Essas rotas ja existem no servidor Midia Indoor sem necessidade de token.
  */
 class ApiClient(private val baseUrl: String) {
 
+    // Timeouts generosos: o servidor (Render free tier) "dorme" quando fica sem uso
+    // e pode levar ate ~50s pra acordar na primeira requisicao depois disso.
     private val client = OkHttpClient.Builder()
-        .connectTimeout(15, TimeUnit.SECONDS)
-        .readTimeout(20, TimeUnit.SECONDS)
+        .connectTimeout(60, TimeUnit.SECONDS)
+        .readTimeout(60, TimeUnit.SECONDS)
         .build()
 
-    /** Busca a lista de mídias cadastradas no painel. */
+    /** Busca a lista de midias cadastradas no painel. */
     fun fetchMidias(): List<Midia> {
         val req = Request.Builder().url("$baseUrl/api/public/midias").get().build()
         client.newCall(req).execute().use { resp ->
@@ -47,7 +49,7 @@ class ApiClient(private val baseUrl: String) {
         }
     }
 
-    /** Registra proof-of-play: avisa o servidor que esta tela exibiu esta mídia agora. */
+    /** Registra proof-of-play: avisa o servidor que esta tela exibiu esta midia agora. */
     fun reportarExibicao(telaId: Int, midiaId: Int) {
         try {
             val json = JSONObject().apply {
@@ -57,15 +59,14 @@ class ApiClient(private val baseUrl: String) {
             val body = json.toString().toRequestBody("application/json".toMediaType())
             val req = Request.Builder().url("$baseUrl/api/exibicoes").post(body).build()
             client.newCall(req).execute().use { resp ->
-                if (!resp.isSuccessful) Log.w("ApiClient", "Falha ao registrar exibição: HTTP ${resp.code}")
+                if (!resp.isSuccessful) Log.w("ApiClient", "Falha ao registrar exibicao: HTTP ${resp.code}")
             }
         } catch (e: Exception) {
-            // Offline-first: se não conseguir avisar o servidor, apenas segue reproduzindo.
-            Log.w("ApiClient", "Não foi possível registrar exibição (offline?): ${e.message}")
+            Log.w("ApiClient", "Nao foi possivel registrar exibicao (offline?): ${e.message}")
         }
     }
 
-    /** Baixa um arquivo de mídia (imagem/vídeo) como bytes. URL pode ser relativa ou absoluta. */
+    /** Baixa um arquivo de midia (imagem/video) como bytes. URL pode ser relativa ou absoluta. */
     fun baixarArquivo(url: String): ByteArray {
         val fullUrl = if (url.startsWith("http")) url else "$baseUrl$url"
         val req = Request.Builder().url(fullUrl).get().build()
