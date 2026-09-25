@@ -1,11 +1,20 @@
 <resources>
-    <string name="app_name">Mídia Indoor Player</string>
-    <string name="config_title">Configurar tela</string>
-    <string name="config_server_hint">URL do servidor (ex: https://midia-indoor-dtlj.onrender.com)</string>
-    <string name="config_tela_hint">ID da tela (cadastrada em Minhas Telas no painel)</string>
-    <string name="config_save">Salvar e iniciar</string>
+    <string name="app_name">VizzoPlay</string>
     <string name="status_no_config">Toque e segure na tela para configurar</string>
     <string name="status_loading">Carregando mídias…</string>
     <string name="status_empty">Nenhuma mídia cadastrada para esta tela</string>
     <string name="status_offline">Sem conexão — reproduzindo mídias salvas localmente</string>
+
+    <string name="pairing_welcome_title">Bem-vindo(a) ao VizzoPlay</string>
+    <string name="pairing_welcome_subtitle">Faça login com a mesma conta do painel para vincular este aparelho a uma tela.</string>
+    <string name="pairing_server_hint">URL do servidor (ex: https://vizzoplay.onrender.com)</string>
+    <string name="pairing_email_hint">E-mail de acesso (mesmo do painel)</string>
+    <string name="pairing_senha_hint">Senha</string>
+    <string name="pairing_btn_continuar">Continuar</string>
+    <string name="pairing_select_title">Selecionando o terminal</string>
+    <string name="pairing_select_subtitle">Escolha a tela cadastrada em \"Minhas Telas\" que corresponde a este aparelho.</string>
+    <string name="pairing_search_hint">Pesquise pelo nome</string>
+    <string name="pairing_confirm_btn">Continuar</string>
+    <string name="pairing_voltar">← Voltar</string>
+    <string name="pairing_trocar_terminal">Trocar terminal vinculado</string>
 </resources>

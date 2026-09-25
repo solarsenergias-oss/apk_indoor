@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_dark"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="32dp">
+
+        <ImageView
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/ic_vizzo_logo"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/pairingTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="@string/pairing_welcome_title"
+            android:textColor="@color/white"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/pairingSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:text="@string/pairing_welcome_subtitle"
+            android:textColor="@color/text_muted"
+            android:textSize="13sp"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/pairingError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/danger"
+            android:textColor="@color/white"
+            android:padding="10dp"
+            android:textSize="13sp"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/pairingProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:visibility="gone" />
+
+        <!-- ===================== Passo 1: login ===================== -->
+        <LinearLayout
+            android:id="@+id/step1Login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_pairing_card"
+            android:padding="20dp">
+
+            <EditText
+                android:id="@+id/inputServerUrl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/pairing_server_hint"
+                android:inputType="textUri"
+                android:textColor="@color/white"
+                android:textColorHint="@color/text_muted"
+                android:background="@drawable/bg_pairing_input"
+                android:autofillHints="" />
+
+            <EditText
+                android:id="@+id/inputEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:hint="@string/pairing_email_hint"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/white"
+                android:textColorHint="@color/text_muted"
+                android:background="@drawable/bg_pairing_input"
+                android:autofillHints="username" />
+
+            <EditText
+                android:id="@+id/inputSenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:hint="@string/pairing_senha_hint"
+                android:inputType="textPassword"
+                android:textColor="@color/white"
+                android:textColorHint="@color/text_muted"
+                android:background="@drawable/bg_pairing_input"
+                android:autofillHints="password" />
+
+            <Button
+                android:id="@+id/btnLoginContinuar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="@string/pairing_btn_continuar"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:background="@drawable/bg_pairing_button" />
+        </LinearLayout>
+
+        <!-- ===================== Passo 2: escolher terminal ===================== -->
+        <LinearLayout
+            android:id="@+id/step2Select"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pairing_select_title"
+                android:textColor="@color/primary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/pairing_select_subtitle"
+                android:textColor="@color/text_muted"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/inputBuscaTerminal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:hint="@string/pairing_search_hint"
+                android:inputType="text"
+                android:textColor="@color/white"
+                android:textColorHint="@color/text_muted"
+                android:background="@drawable/bg_pairing_input"
+                android:autofillHints="" />
+
+            <ListView
+                android:id="@+id/listTerminais"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:divider="@null"
+                android:dividerHeight="8dp" />
+        </LinearLayout>
+
+        <!-- ===================== Passo 3: confirmar terminal ===================== -->
+        <LinearLayout
+            android:id="@+id/step3Confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pairing_select_title"
+                android:textColor="@color/primary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_pairing_card"
+                android:padding="18dp">
+
+                <TextView
+                    android:id="@+id/confirmNome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <View android:layout_width="match_parent" android:layout_height="1dp"
+                    android:background="@color/border_dark" android:layout_marginVertical="12dp" />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Endereço" android:textColor="@color/text_muted" android:textSize="12sp" />
+                <TextView android:id="@+id/confirmEndereco" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textColor="@color/white" android:textSize="14sp" android:layout_marginBottom="10dp" />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Orientação" android:textColor="@color/text_muted" android:textSize="12sp" />
+                <TextView android:id="@+id/confirmOrientacao" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textColor="@color/white" android:textSize="14sp" android:layout_marginBottom="10dp" />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Ciclo de atualização" android:textColor="@color/text_muted" android:textSize="12sp" />
+                <TextView android:id="@+id/confirmCiclo" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textColor="@color/white" android:textSize="14sp" android:layout_marginBottom="10dp" />
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Total de mídias" android:textColor="@color/text_muted" android:textSize="12sp" />
+                <TextView android:id="@+id/confirmTotalMidias" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textColor="@color/white" android:textSize="14sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnConfirmarTerminal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/pairing_confirm_btn"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:background="@drawable/bg_pairing_button" />
+
+            <Button
+                android:id="@+id/btnVoltarLista"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/pairing_voltar"
+                android:textColor="@color/text_muted"
+                android:textAllCaps="false"
+                android:background="@android:color/transparent" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

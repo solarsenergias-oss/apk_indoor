@@ -1,6 +1,11 @@
 <resources>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
-    <color name="primary">#7C3AED</color>
+    <color name="primary">#6C5CE0</color>
+    <color name="accent_teal">#22B8A0</color>
     <color name="text_muted">#9CA3AF</color>
+    <color name="bg_dark">#14161C</color>
+    <color name="surface_dark">#1E212B</color>
+    <color name="border_dark">#2C303B</color>
+    <color name="danger">#DC2626</color>
 </resources>

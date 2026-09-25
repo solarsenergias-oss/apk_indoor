@@ -10,7 +10,8 @@ data class Midia(
     val tipo: String,      // "imagem" | "video" | "youtube" | "link" | "programatica"
     val url: String?,
     val orientacao: String?,
-    val status: String?
+    val status: String?,
+    val duracaoSegundos: Int = 10
 ) {
     /** Tipos que o player nativo consegue baixar e reproduzir localmente. */
     fun isReproduzivelLocalmente(): Boolean =
